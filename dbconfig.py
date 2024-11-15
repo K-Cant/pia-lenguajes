@@ -2,9 +2,8 @@ import pymysql
 
 def getDBConnection():
     connection = pymysql.connect(
-        host = 'mysql',
+        host = 'localhost',
         user = 'root',
-        port = 30278,
         password = 'password1',
         database = 'PIA'
     )
