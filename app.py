@@ -12,19 +12,6 @@ tmdb.language = 'es'
 app = Flask(__name__)
 app.secret_key = "super secret key"
 
-def exist_table():
-    connection = getDBConnection()
-    cursor = connection.cursor()
-
-    try:
-        cursor.execute("CREATE TABLE IF NOT EXISTS usuarios(id int auto_increment primary key, username varchar(255) not null, email text not null, password_user text not null)")
-        connection.commit()
-    except pymysql.MySQLError as e:
-        print(e)
-    finally:
-        cursor.close()
-        connection.close()  
-
 @app.route('/', methods=['GET'])
 def home():
     return render_template('sign_in.html')
@@ -38,8 +25,6 @@ def sign_in():
 
         connection = getDBConnection()
         cursor = connection.cursor(pymysql.cursors.DictCursor)
-
-        exist_table()
 
         cursor.execute("SELECT * FROM usuarios WHERE email =%s", (email))
         user_found = cursor.fetchone()
@@ -65,8 +50,6 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        exist_table()
-    
         connection = getDBConnection()
         cursor = connection.cursor(pymysql.cursors.DictCursor)
 
