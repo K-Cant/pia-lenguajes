@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, redirect, render_template, request, session, url_for
 import pymysql
 import pymysql.cursors
-from dbconfig import getDBConnection
+from dbconfig import getDBConnection, create_tables
 from tmdbv3api import TMDb, Movie
 from datetime import datetime
 
@@ -225,4 +225,5 @@ def search_movies():
     return jsonify([]) 
     
 if __name__ == '__main__':
+    create_tables()
     app.run(debug=True, host="0.0.0.0")
