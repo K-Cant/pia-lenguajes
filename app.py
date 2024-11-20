@@ -23,7 +23,7 @@ def create_tables():
     try:
         cursor.execute("CREATE TABLE IF NOT EXISTS usuarios(id int auto_increment primary key, username varchar(255) not null, email text not null, password_user text not null)")
         connection.commit()
-    except Exception as e:
+    except pymysql.MySQLError as e:
         print(e)
     finally:
         cursor.close()
