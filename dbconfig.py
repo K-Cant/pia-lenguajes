@@ -5,7 +5,7 @@ def getDBConnection():
     connection = pymysql.connect(
         host='mysql',         
         user='root',    
-        port=3306,
+        port=30278,
         password = 'password1',
         database = 'PIA'
     )
