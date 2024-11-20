@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, redirect, render_template, request, session, url_for
 import pymysql
 import pymysql.cursors
-from dbconfig import getDBConnection, create_tables
+from dbconfig import getDBConnection
 from tmdbv3api import TMDb, Movie
 from datetime import datetime
 
@@ -15,6 +15,19 @@ app.secret_key = "super secret key"
 @app.route('/', methods=['GET'])
 def home():
     return render_template('sign_in.html')
+
+def create_tables():
+    connection = getDBConnection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("CREATE TABLE IF NOT EXISTS usuarios(id int auto_increment primary key, username varchar(255) not null, email text not null, password_user text not null)")
+        connection.commit()
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+        connection.close()
 
 @app.route('/sign_in', methods=['GET','POST'])
 def sign_in():
@@ -226,4 +239,4 @@ def search_movies():
     
 if __name__ == '__main__':
     create_tables()
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
