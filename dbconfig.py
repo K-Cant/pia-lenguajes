@@ -1,5 +1,4 @@
 import pymysql
-import cryptography
 
 def getDBConnection():
     connection = pymysql.connect(
