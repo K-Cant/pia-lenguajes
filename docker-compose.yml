@@ -7,7 +7,7 @@ services:
       MYSQL_DATABASE: PIA
       MYSQL_ROOT_HOST: '%'
     ports:
-      - "30278:30278"
+      - "30278:3306"
     expose:
       - '30278'
     volumes:
